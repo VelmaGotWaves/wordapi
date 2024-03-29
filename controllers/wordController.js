@@ -59,11 +59,11 @@ const kretanja = async (req, res) => {
                 patches: {
                     po_zahtevu: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(uGenitiv(ime)), new TextRun(poslovnoIme), new TextRun(niz[0]), new TextRun(adresa.join(' ')), new TextRun(niz[1]), new TextRun(broj)],
+                        children: [new TextRun(uGenitiv(ime)), new TextRun(punNaziv), new TextRun(niz[0]), new TextRun(adresa.join(' ')), new TextRun(niz[1]), new TextRun(broj)],
                     },
                     odobrava_se: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(uDativ(ime)), new TextRun()],
+                        children: [new TextRun(uDativ(ime)), new TextRun(punNaziv), new TextRun(niz[0]), new TextRun(adresa.join(' ')), new TextRun(niz[1]), new TextRun(broj)],
                     },
                     registarski_br1: {
                         type: PatchType.PARAGRAPH,
@@ -71,7 +71,7 @@ const kretanja = async (req, res) => {
                     },
                     podneo_je: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(ime), new TextRun()],
+                        children: [new TextRun(ime), new TextRun(punNaziv), new TextRun(niz[0]), new TextRun(adresa.join(' ')), new TextRun(niz[1]), new TextRun(broj)],
                     },
                     registarski_br2: {
                         type: PatchType.PARAGRAPH,
