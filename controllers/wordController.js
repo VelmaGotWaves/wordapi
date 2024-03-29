@@ -43,15 +43,15 @@ const kretanja = async (req, res) => {
 
     const docxMerger = new DocxMerger();
 
-    const { ime, adresa, preduzetnik, punNaziv, poslovnoIme, registracije } = req.body;
+    let { ime, adresa, preduzetnik, punNaziv, poslovnoIme, registracije } = req.body;
     console.log({ ime, adresa, preduzetnik, punNaziv, poslovnoIme, registracije })
-
-    let gay = '“LUKA PEDERCINA” из Београда, ул. бр.'
-    let niz = ["123NZ", "604NZ", "605NZ", "606NZ", "607NZ"];
+    adresa = adresa.split(' ')
+    let broj = adresa.splice('-1')[0];
+    let niz = ["из Београда, ул.", "бр."];
     let dokumenti = [];
     console.log('hello world')
     let promises = [];
-
+    console.log(uGenitiv(ime),poslovnoIme,niz[0],adresa.join(' '),niz[1],broj)
     registracije.forEach(tablica => {
         const promise = patchDocument(
             fs.readFileSync(path.join(__dirname, 'OBRAZAC-KRETANJE.docx')),
@@ -59,7 +59,7 @@ const kretanja = async (req, res) => {
                 patches: {
                     po_zahtevu: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(uGenitiv(ime)), new TextRun()],
+                        children: [new TextRun(uGenitiv(ime)), new TextRun(poslovnoIme), new TextRun(niz[0]), new TextRun(adresa.join(' ')), new TextRun(niz[1]), new TextRun(broj)],
                     },
                     odobrava_se: {
                         type: PatchType.PARAGRAPH,
@@ -71,7 +71,7 @@ const kretanja = async (req, res) => {
                     },
                     podneo_je: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(gay)],
+                        children: [new TextRun(ime), new TextRun()],
                     },
                     registarski_br2: {
                         type: PatchType.PARAGRAPH,
