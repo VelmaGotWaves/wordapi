@@ -10,94 +10,142 @@
 </head>
 
 <body>
-
-    <h1>hello world</h1>
-    <button id="GOGOGO" onclick="GOGOGO()">FETCH</button>
-    <p>Ime:</p>
-    <input type="text" name="" id="ime">
-    <p>Adresa:</p>
-    <input type="text" name="" id="adresa">
-    <p>Pun naziv firme:</p>
-    <input type="text" name="" id="pun">
-    <p>Poslovno ime firme:</p>
-    <input type="text" name="" id="poslovno">
-    <section class="section-registracije">
-        <div class="naslov-registracije">
-            <p>Registracije: </p>
+    <header>
+        <div class="text-box">
+          <h1 id="title">DOCX GENERATOR</h1>
         </div>
-        <div class="unos-registracije">
-            <input class='input-registracije' type="text" name="" id="registracije0" data-broj-registracije="0">
-
+      </header>
+      <div class="container">
+        <div id="survey-form" method="GET">
+      
+          <div class="labels">
+            <label id="ime-label" for="ime">* IME POSLOVNOG LICA</label>
+          </div>
+          <div class="input-tab">
+            <input class="input-field" type="text" id="ime" placeholder="Ime" required autofocus>
+          </div>
+      
+          <div class="labels">
+            <label id="adresa-label" for="adresa">* ADRESA FIRME</label>
+          </div>
+          <div class="input-tab">
+            <input class="input-field" type="text" id="adresa" placeholder="Adresa" required>
+          </div>
+      
+          <div class="labels">
+            <label id="pun-label" for="pun">* PUN NAZIV FIRME</label>
+          </div>
+          <div class="input-tab">
+            <input class="input-field" type="text" id="pun" placeholder="Firma" required>
+          </div>
+      
+      
+          <div class="labels">
+            <label for="obrazac">TIP OBRAZCA</label>
+          </div>
+          <div class="input-tab">
+            <select id="obrazac" name="site" class="dropdown">
+              <option value selected value="kretanje">OBRAZAC-KRETANJE</option>
+              <option disabled value="web">Website</option>
+      
+            </select>
+          </div>
+      
+          <div class="labels">
+            <label>POSLOVNO LICE</label>
+          </div>
+          <div class="input-tab">
+            <input type="radio" name="radio-button" value="love">PREDUZETNIK<br>
+            <input type="radio" name="radio-button" value="like">KOMPANIJA<br>
+      
+          </div>
+      
+          <div class="labels">
+            <label id="name-label" for="name">* REGISTRACIJA VOZILA</label>
+          </div>
+          <div class="input-tab">
+            <input class="input-field input-registracije" type="text" id="registracije0" placeholder="BG.123-AB" data-broj-registracije="0">
+          </div>
+      
+          <div class="btn">
+            <button id="submit" onclick="GOGOGO()">Submit</button>
+          </div>
+      
         </div>
-    </section>
-    <script>
+      </div>
+      
+      <footer>
+        <p>&copy 2024 Ognjen Kovačević & Luka Milojković</a></p>
+      </footer>
+      <script>
         const glupiTrigger = {
-            0: false,
+          0: false,
         };
         document.getElementById('registracije0').addEventListener('input', (e) => prviInput(e))
         function prviInput(e) {
-            if (!glupiTrigger[`${e.srcElement.dataset.brojRegistracije}`]) {
-                generisiNoviInput(e.srcElement.dataset.brojRegistracije + 1);
-                glupiTrigger[`${e.srcElement.dataset.brojRegistracije}`] = true;
-            }
+          if (!glupiTrigger[`${e.srcElement.dataset.brojRegistracije}`]) {
+            generisiNoviInput(e.srcElement.dataset.brojRegistracije + 1);
+            glupiTrigger[`${e.srcElement.dataset.brojRegistracije}`] = true;
+          }
         };
         function generisiNoviInput(n) {
-            glupiTrigger[`${n}`] = false;
-
-            const newInput = document.createElement('input');
-            newInput.type = 'text';
-            newInput.id = `registracije${n}`;
-            newInput.dataset.brojRegistracije = `${n}`;
-            newInput.addEventListener('input', (e) => prviInput(e));
-            newInput.classList.add('input-registracije');
-            document.body.querySelector('.unos-registracije').appendChild(newInput);
+          glupiTrigger[`${n}`] = false;
+      
+          const newInput = document.createElement('input');
+          newInput.type = 'text';
+          newInput.id = `registracije${n}`;
+          newInput.dataset.brojRegistracije = `${n}`;
+          newInput.addEventListener('input', (e) => prviInput(e));
+          newInput.classList.add('input-registracije');
+          document.body.querySelector('.unos-registracije').appendChild(newInput);
         }
         async function GOGOGO() {
-            fetch('word', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ 
-                    "obrazac": "kretanja" ,
-                    "ime": document.body.querySelector("#ime").value ?? "GRESKA",
-                    "adresa": document.body.querySelector("#adresa").value ?? "GRESKA",
-                    "preduzetnik": false,
-                    "punNaziv": document.body.querySelector("#pun").value ?? "GRESKA",
-                    "poslovnoIme": document.body.querySelector("#poslovno").value ?? "GRESKA",
-                    "registracije": [...document.querySelectorAll('.input-registracije')].filter(input => input.value).map(input => input.value),
-                }),
-            }).then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.blob(); // Use response.blob() to interpret as binary data
-                })
-                .then(blob => {
-                    // Create a temporary URL for the Blob
-                    const url = URL.createObjectURL(blob);
-
-                    // Create a link element
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'document.docx'; // Set the filename here
-
-                    // Append the link to the document body
-                    document.body.appendChild(link);
-
-                    // Click the link to initiate the download
-                    link.click();
-
-                    // Clean up: remove the link and revoke the URL
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                })
-                .catch(error => {
-                    console.error('Error fetching file:', error);
-                });
-
+          fetch('word', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              "obrazac": "kretanja",
+              "ime": document.body.querySelector("#ime").value ?? "GRESKA",
+              "adresa": document.body.querySelector("#adresa").value ?? "GRESKA",
+              "preduzetnik": false,
+              "punNaziv": document.body.querySelector("#pun").value ?? "GRESKA",
+              "poslovnoIme": document.body.querySelector("#poslovno").value ?? "GRESKA",
+              "registracije": [...document.querySelectorAll('.input-registracije')].filter(input => input.value).map(input => input.value),
+            }),
+          }).then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.blob(); // Use response.blob() to interpret as binary data
+          })
+            .then(blob => {
+              // Create a temporary URL for the Blob
+              const url = URL.createObjectURL(blob);
+      
+              // Create a link element
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = 'document.docx'; // Set the filename here
+      
+              // Append the link to the document body
+              document.body.appendChild(link);
+      
+              // Click the link to initiate the download
+              link.click();
+      
+              // Clean up: remove the link and revoke the URL
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+              console.error('Error fetching file:', error);
+            });
+      
         }
-    </script>
+      </script>
+    
 </body>
 
 </html>
