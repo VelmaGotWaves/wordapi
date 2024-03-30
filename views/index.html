@@ -1,82 +1,92 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
     <link rel="stylesheet" href="css/style.css" />
-</head>
 
+    </head>
 <body>
     <header>
         <div class="text-box">
           <h1 id="title">DOCX GENERATOR</h1>
         </div>
       </header>
-      <div class="container">
-        <div id="survey-form" method="GET">
-      
-          <div class="labels">
-            <label id="ime-label" for="ime">* IME POSLOVNOG LICA</label>
+    <div class="container">
+      <div id="survey-form" method="GET">
+
+         <div class="labels">
+            <label id="ime-label" for="ime"> IME POSLOVNOG LICA</label>
           </div>
           <div class="input-tab">
-            <input class="input-field" type="text" id="ime" placeholder="Ime" required autofocus>
-          </div>
-      
-          <div class="labels">
-            <label id="adresa-label" for="adresa">* ADRESA FIRME</label>
-          </div>
-          <div class="input-tab">
-            <input class="input-field" type="text" id="adresa" placeholder="Adresa" required>
+            <input class="input-field" type="text" id="ime" placeholder="Име" required autofocus>
           </div>
       
           <div class="labels">
-            <label id="pun-label" for="pun">* PUN NAZIV FIRME</label>
+            <label id="adresa-label" for="adresa"> ADRESA FIRME</label>
           </div>
           <div class="input-tab">
-            <input class="input-field" type="text" id="pun" placeholder="Firma" required>
+            <input class="input-field" type="text" id="adresa" placeholder="Улица и бр." required>
           </div>
-      
       
           <div class="labels">
-            <label for="obrazac">TIP OBRAZCA</label>
+            <label id="pun-label" for="pun"> PUN NAZIV FIRME</label>
           </div>
           <div class="input-tab">
-            <select id="obrazac" name="site" class="dropdown">
-              <option value selected value="kretanje">OBRAZAC-KRETANJE</option>
-              <option disabled value="web">Website</option>
-      
+            <input class="input-field" type="text" id="pun" placeholder="Фирма" required>
+          </div>
+          
+         <div class="labels">
+            <label for="dropdown">TIP OBRAZCA</label></div>
+          <div class="input-tab">
+            <select id="dropdown" name="site">
+              <option selected value="kretanje">KRETANJE</option>
+              <option disabled value="kretanje">MLADENOVAC</option>
+              <option disabled value="kretanje">PESACKA</option>
+              <option disabled value="kretanje">SNABDEVANJE DO 3,5T</option>
+              <option disabled value="kretanje">MESALICE</option>
+              <option disabled value="kretanje">OBRENOVAC</option>
+              <option disabled value="kretanje">VANGABARIT</option>
+              <option disabled value="kretanje">SNABDEVANJE PREKO 3,5T</option>
+              <option disabled value="kretanje">AUTO SKOLA</option>
+              <option disabled value="kretanje">BARAJEVO</option>
+              <option disabled value="kretanje">GRADILISTA</option>
+              <option disabled value="kretanje">GRADILISTA VANGABARIT</option>
+              <option disabled value="kretanje">KRETANJE FIZICKO LICE</option>
+              <option disabled value="kretanje">IZMENA RESEJNA</option>
+              <option disabled value="kretanje">LAZAREVAC</option>
             </select>
-          </div>
-      
-          <div class="labels">
+            </div>
+        
+        <div class="labels">
             <label>POSLOVNO LICE</label>
           </div>
           <div class="input-tab">
-            <input type="radio" name="radio-button" value="love">PREDUZETNIK<br>
-            <input type="radio" name="radio-button" value="like">KOMPANIJA<br>
+            <input type="radio" name="radio-button" value="preduzetnik" id="radio-preduzetnik" checked><label for="radio-preduzetnik">PREDUZETNIK</label><br>
+            <input type="radio" name="radio-button" value="kompanija" id="radio-kompanija"><label for="radio-kompanija">KOMPANIJA</label><br>
       
           </div>
       
           <div class="labels">
-            <label id="name-label" for="name">* REGISTRACIJA VOZILA</label>
+            <label id="name-label" for="name"> REGISTRACIJA VOZILA</label>
           </div>
-          <div class="input-tab">
+          <div class="input-tab unos-registracije">
             <input class="input-field input-registracije" type="text" id="registracije0" placeholder="BG.123-AB" data-broj-registracije="0">
           </div>
       
           <div class="btn">
             <button id="submit" onclick="GOGOGO()">Submit</button>
           </div>
-      
-        </div>
+        
       </div>
-      
-      <footer>
-        <p>&copy 2024 Ognjen Kovačević & Luka Milojković</a></p>
-      </footer>
+    </div>
+
+<footer>
+      <p>&copy 2024 Ognjen Kovačević & Luka Milojković</a></p>
+</footer>
+
       <script>
         const glupiTrigger = {
           0: false,
@@ -97,6 +107,8 @@
           newInput.dataset.brojRegistracije = `${n}`;
           newInput.addEventListener('input', (e) => prviInput(e));
           newInput.classList.add('input-registracije');
+          newInput.classList.add('input-field');
+          newInput.placeholder="BG.123-AB";
           document.body.querySelector('.unos-registracije').appendChild(newInput);
         }
         async function GOGOGO() {
@@ -109,9 +121,8 @@
               "obrazac": "kretanja",
               "ime": document.body.querySelector("#ime").value ?? "GRESKA",
               "adresa": document.body.querySelector("#adresa").value ?? "GRESKA",
-              "preduzetnik": false,
+              "preduzetnik": document.getElementById('radio-preduzetnik').checked,
               "punNaziv": document.body.querySelector("#pun").value ?? "GRESKA",
-              "poslovnoIme": document.body.querySelector("#poslovno").value ?? "GRESKA",
               "registracije": [...document.querySelectorAll('.input-registracije')].filter(input => input.value).map(input => input.value),
             }),
           }).then(response => {
