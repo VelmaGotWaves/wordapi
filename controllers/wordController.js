@@ -71,7 +71,7 @@ const kretanja = async (req, res) => {
                     },
                     podneo_je: {
                         type: PatchType.PARAGRAPH,
-                        children: [new TextRun(ime + " "+ " "), new TextRun(punNaziv + " "), new TextRun(niz[0] + " "), new TextRun(adresa.join(' ') + " "), new TextRun(niz[1] + " "), new TextRun(broj)],
+                        children: [new TextRun(ime+ " "), new TextRun(punNaziv + " "), new TextRun(niz[0] + " "), new TextRun(adresa.join(' ') + " "), new TextRun(niz[1] + " "), new TextRun(broj)],
                     },
                     registarski_br2: {
                         type: PatchType.PARAGRAPH,
@@ -131,9 +131,10 @@ function uGenitiv(ime) {
 
     const modifiedWords = words.map(word => {
         const lastLetter = word[word.length - 1];
-        const isVowel = ['a', 'e', 'i', 'o', 'u'].includes(lastLetter.toLowerCase());
+        const isVowel = ['а', 'е', 'и', 'у'].includes(lastLetter.toLowerCase());
+        const isVowel2 = ['о'].includes(lastLetter.toLowerCase());
 
-        const modifiedWord = isVowel ? word.slice(0, -1) + 'e' : word + 'a';
+        const modifiedWord = isVowel ? word.slice(0, -1) + 'е' : isVowel2? word.slice(0, -1) + 'а' :word + 'а';
         return modifiedWord;
     });
 
@@ -146,10 +147,10 @@ function uDativ(ime) {
 
     const modifiedWords = words.map(word => {
         const lastLetter = word[word.length - 1];
-        const isVowel = ['a'].includes(lastLetter.toLowerCase());
-        const isVowel2 = ['e', 'i', 'o', 'u'].includes(lastLetter.toLowerCase());
+        const isVowel = ['а'].includes(lastLetter.toLowerCase());
+        const isVowel2 = ['е', 'и', 'о', 'у'].includes(lastLetter.toLowerCase());
 
-        const modifiedWord = isVowel ? word.slice(0, -1) + 'i' : isVowel2?word.slice(0, -1) + 'y' : word + 'y';
+        const modifiedWord = isVowel ? word.slice(0, -1) + 'и' : isVowel2?word.slice(0, -1) + 'у' : word + 'у';
         return modifiedWord;
     });
 
