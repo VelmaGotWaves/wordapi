@@ -22,4 +22,4 @@ app.all('*', (req, res) => {
         res.type('txt').send("404 Not Found");
     }
 });
-app.listen(3500, () => console.log(`Server running on port ${3500}`));
+app.listen(80, () => console.log(`Server running on port ${80}`));
