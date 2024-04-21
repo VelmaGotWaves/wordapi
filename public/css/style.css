@@ -170,3 +170,16 @@ footer p {
     margin: auto;
   }
 }
+
+.upload-container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upload-drag-container{
+  width:100%;
+  height: 60px;
+  display:block;
+  background-color: #DDD;
+  border:2px dashed #999
+}

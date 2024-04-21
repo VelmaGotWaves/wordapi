@@ -8,9 +8,11 @@ app.use(express.json());
 
 app.use('/', express.static(path.join(__dirname, '/public')));
 
-app.use('/', require('./routes/root'));
+app.use('/', require('./routes/html/root'));
+app.use('/tabele', require('./routes/html/tabele'));
 
 app.use('/word', require('./routes/word'))
+app.use('/excel_to_word', require('./routes/excel_to_word'))
 
 app.all('*', (req, res) => {
     res.status(404);
